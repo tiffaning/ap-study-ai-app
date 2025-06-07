@@ -11,7 +11,7 @@ origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # allow all origins for testing only
+    allow_origins=origins,  # <-- use the environment variable here!
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
