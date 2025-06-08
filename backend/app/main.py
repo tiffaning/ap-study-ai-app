@@ -17,6 +17,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"message": "It works!"}
+
 @app.get("/mcq")
 def get_mcq():
     return {

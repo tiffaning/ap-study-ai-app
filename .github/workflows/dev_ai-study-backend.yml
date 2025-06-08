@@ -36,17 +36,20 @@ jobs:
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
-      - name: Zip artifact for deployment
-        run: zip -r release.zip .
-        working-directory: backend
+      - name: Prepare deployment package
+        run: |
+          mkdir deploy
+          cp backend/requirements.txt backend/startup.txt deploy/
+          cp -r backend/app/* deploy/
+          cd deploy
+          zip -r ../release.zip .
+
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: |
-            backend/release.zip
-            !backend/venv/
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
