@@ -9,7 +9,7 @@ on:
     branches:
       - dev
     paths:
-      - 'backend/**'  # Trigger only on changes to backend folder
+      - 'backend/app/**'  # Trigger only on changes to backend/app folder
   workflow_dispatch:
 
 jobs:
@@ -33,13 +33,13 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
-        working-directory: ./backend  # Run in backend folder
+        working-directory: ./backend/app  # Run in backend/app folder
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip .  # Zip only backend folder
-        working-directory: ./backend  # Run in backend folder
+        run: zip -r release.zip .  # Zip only backend/app folder
+        working-directory: ./backend/app  # Run in backend/app folder
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
@@ -72,4 +72,4 @@ jobs:
           app-name: 'ai-study-backend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8B4280D8208942CDB99AB214066EEA7A }}
-          package: .  # Deploy unzipped backend folder contents
+          package: .  # Deploy unzipped backend/app folder contents
