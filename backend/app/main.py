@@ -19,7 +19,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"message": "It works"}
+    return {"message": "It works!"}
 
 @app.get("/mcq")
 def get_mcq():
